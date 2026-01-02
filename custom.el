@@ -54,3 +54,9 @@
   (setq lsp-keymap-prefix "C-c l")  ;; optional, set prefix for LSP commands
   :config
   (lsp-enable-which-key-integration t))
+
+;; Don't start LSP in Ediff buffers
+(add-hook 'ediff-prepare-buffer-hook
+          (lambda ()
+            (when (bound-and-true-p lsp-mode)
+              (lsp-disconnect))))
