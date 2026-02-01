@@ -60,3 +60,7 @@
           (lambda ()
             (when (bound-and-true-p lsp-mode)
               (lsp-disconnect))))
+
+;; Speed up LSP - Company
+(setq company-idle-delay 0.0)
+(setq company-minimum-prefix-length 1)
