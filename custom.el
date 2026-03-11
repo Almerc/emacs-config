@@ -4,9 +4,30 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("f681100b27d783fefc3b62f44f84eb7fa0ce73ec183ebea5903df506eb314077" default))
+   '("f681100b27d783fefc3b62f44f84eb7fa0ce73ec183ebea5903df506eb314077"
+     default))
  '(package-selected-packages
-   '(aidermacs flycheck-rust helm-descbinds xref-js2 projectile-ripgrep tide sesman anaconda-mode async cider clojure-mode company-anaconda compat dash f gh helm helm-core helm-projectile ht magit-section markdown-mode parseclj parseedn popup pythonic rust-mode transient tree-sitter-langs with-editor yasnippet kotlin-mode swift-mode direnv load-env-vars csv-mode mermaid-mode dockerfile-mode typescript-mode ripgrep ivy-hydra swiper ivy helm-xref dogears helm-git-grep git-grep dracula-theme dumb-jump yaml-mode web-mode lsp-ui lsp-mode json-mode js2-mode rainbow-mode elisp-slime-nav rainbow-delimiters company consult orderless vertico exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number nlinum move-text magit projectile imenu-anywhere hl-todo guru-mode git-modes git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring anzu ag ace-window use-package elisp-slime-nav)))
+   '(ace-window ag aidermacs anaconda-mode anzu async browse-kill-ring
+                cider clojure-mode company company-anaconda compat
+                consult copilot crux csv-mode dash diff-hl diminish
+                direnv discover-my-major dockerfile-mode dogears
+                dracula-theme dumb-jump easy-kill editorconfig
+                elisp-slime-nav elisp-slime-nav epl
+                exec-path-from-shell expand-region f flycheck
+                flycheck-rust gh gist git-grep git-modes
+                git-timemachine guru-mode helm helm-core
+                helm-descbinds helm-git-grep helm-projectile helm-xref
+                hl-todo ht imenu-anywhere ivy ivy-hydra js2-mode
+                json-mode kotlin-mode load-env-vars lsp-mode lsp-ui
+                magit magit-section markdown-mode mermaid-mode
+                move-text nlinum operate-on-number orderless parseclj
+                parseedn popup projectile projectile-ripgrep pythonic
+                rainbow-delimiters rainbow-mode ripgrep rust-mode
+                sesman smartparens smartrep super-save swift-mode
+                swiper tide transient tree-sitter-langs
+                typescript-mode undo-tree use-package vertico
+                volatile-highlights web-mode which-key with-editor
+                xref-js2 yaml-mode yasnippet zenburn-theme zop-to-char)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -48,7 +69,9 @@
 
 (use-package lsp-mode
   :ensure t
-  :hook ((clojure-mode . lsp))
+  :hook ((clojure-mode . lsp)
+         (typescript-mode . lsp)
+         (js2-mode . lsp))
   :commands lsp
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; optional, set prefix for LSP commands
@@ -64,3 +87,16 @@
 ;; Speed up LSP - Company
 (setq company-idle-delay 0.0)
 (setq company-minimum-prefix-length 1)
+
+;; Copilot
+
+(use-package copilot
+  :ensure t
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . copilot-accept-completion)
+              ("TAB" . copilot-accept-completion)
+              ("C-<tab>" . copilot-accept-completion-by-word)
+              ("C-TAB" . copilot-accept-completion-by-word)
+              ("C-n" . copilot-next-completion)
+              ("C-p" . copilot-previous-completion)))
